@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import './App.scss';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import SignIn from './components/SignIn';
+import Paperbase from './components/Paperbase';
+import theme from './theme/Theme';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <main className="App">
+          <section className="route-container">
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/login"/>}/>
+              <Route path="/login" component={SignIn}/>
+              <Route path="/create" component={Paperbase}/>
+            </Switch>
+          </section>
+        </main>
+      </BrowserRouter>
+    </ThemeProvider>
+
   );
 }
 
